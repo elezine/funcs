@@ -2,6 +2,9 @@
 import smtplib, ssl
 
 def send_alert(message, sender_email, password, recipient_email):
+    '''
+    Add this to your code to send an email alert (like if the code fails, for instance, with a try statement).
+    '''
     port = 465
     context = ssl.create_default_context()
 
