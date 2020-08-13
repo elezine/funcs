@@ -87,37 +87,6 @@ def check_no_data_val(raster_path):
     ras = rio.open(raster_path)
     return ras.nodatavals
 
-#PEKEL SPECIFIC FUNCTIONS
-
-def threshold_pekel_dem(pekel_path, dem_path, output_path, threshold, remove_water_size = 20000):
-    pekel = rio.open(pekel_path)
-    dem = rio.open(dem_path)
-
-    pekel = pekel.read(1)
-    pekel = pekel.astype(np.float32)
-    pekel[pekel < threshold] = np.nan
-    pekel[pekel > 100] = np.nan
-    pekel[~np.isnan(pekel)] = 1
-
-    pekel = pekel*dem.read(1)
-    pekel[~np.isnan(pekel)] = 1
-    pekel[np.isnan(pekel)] = 0
-
-    labeled_minima = measure.label(pekel, connectivity = 2)
-
-    if remove_water_size:
-        regs = measure.regionprops(labeled_minima)
-
-        for i in range(0, len(regs)):
-            if regs[i].area > remove_water_size:
-                k = regs[i].coords[:,0] #the i coords
-                j = regs[i].coords[:,1] #the j coords
-                labeled_minima[k,j] = 0
-
-    np.save(output_path, labeled_minima)
-    print('saved thresholded and labeled pekel regions')
-
-
 #### THESE FUNCTIONS CAME FROM STACK EXCHANGE AND ARE REALLY USEFUL TO SPLITTING A RASTER INTO SMALLER FILES:
 #### FOR THAT, JUST USE THE FIRST FUNCTION:
 #### OG SOURCE: Ciaran Evans, https://gis.stackexchange.com/questions/306861/split-geotiff-into-multiple-cells-with-rasterio
