@@ -1,1 +1,1 @@
-Functions I use all the time. 
+Random functions for geospatial analysis.
