@@ -1,1 +1,1 @@
-Random functions for geospatial analysis.
+Random functions for geospatial analysis (mostly).
