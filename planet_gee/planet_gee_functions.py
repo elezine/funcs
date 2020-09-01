@@ -7,6 +7,7 @@ from requests.auth import HTTPBasicAuth
 def get_image_ids(geometry, start_date, end_date, cloud_cover, api_key, image_type = 'PSScene4Band'):
     '''
     Get the Planet image ids within a geometry and time period.
+    Code credit to: https://developers.planet.com/tutorials/index2.html
     
     Arguments:
     - geometry: geojson coordinates for a polygon
